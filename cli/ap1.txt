@@ -1,0 +1,24 @@
+mc_mgrp_create 128
+mc_mgrp_create 1000
+
+mc_node_create 1100 1 2 3
+
+mc_node_associate 1000 0
+
+
+table_add MyIngress.tb_ipv4_lpm ac_ipv4_forward 10.0.10.11/32 => 1 56:1E:10:00:10:11
+table_add MyIngress.tb_ipv4_lpm ac_ipv4_forward 10.0.10.12/32 => 2 56:1E:10:00:10:12
+
+table_add MyIngress.tb_l2_forward ac_l2_broadcast FF:FF:FF:FF:FF:FF => 1000
+
+table_add MyIngress.tb_l2_forward ac_l2_forward 56:1E:10:00:10:11 => 1
+table_add MyIngress.tb_l2_forward ac_l2_forward 56:1E:10:00:10:12 => 2
+
+table_add MyIngress.tb_l2_forward ac_l2_forward 56:1E:10:00:10:21 => 3
+table_add MyIngress.tb_l2_forward ac_l2_forward 56:1E:10:00:10:22 => 3
+
+table_add MyIngress.tb_ipv4_mc_route_lookup ac_set_mcast_grp 10.0.10.255 => 128
+
+table_add MyIngress.tb_ipv4_lpm ac_ipv4_forward 10.0.10.21/32 => 3 56:1E:10:00:20:21
+table_add MyIngress.tb_ipv4_lpm ac_ipv4_forward 10.0.10.22/32 => 3 56:1E:10:00:20:22
+
