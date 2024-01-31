@@ -9,9 +9,9 @@
 ### 3. Mininet: https://mininet.org/download/
 
 ### 4. gnome-terminal:
-"""
+'''
 sudo apt-get install gnome-terminal
-"""
+'''
 
 # Running the Mininet:
 
